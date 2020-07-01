@@ -23,7 +23,7 @@ Desafio para avaliação de candidato
         - responsável
         - saldo
 
-- Motiventações
+- Movimentações
     - Realizar deposito
     - Realizar saque
     - Realizar transferência
