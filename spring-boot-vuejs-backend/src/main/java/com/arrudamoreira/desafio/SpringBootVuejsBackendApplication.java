@@ -1,0 +1,13 @@
+package com.arrudamoreira.desafio;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringBootVuejsBackendApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootVuejsBackendApplication.class, args);
+	}
+
+}
