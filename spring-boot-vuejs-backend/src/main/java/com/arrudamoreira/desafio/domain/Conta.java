@@ -1,11 +1,16 @@
 package com.arrudamoreira.desafio.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Conta implements Serializable{
@@ -17,6 +22,10 @@ public class Conta implements Serializable{
 	private Integer numero;
 	private String responsavel;
 	private Double saldo;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "conta")
+	private List<Movimentacao> movimentacoes = new ArrayList<>();
 	
 	public Conta () {
 	}
@@ -59,6 +68,14 @@ public class Conta implements Serializable{
 
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
+	}
+
+	public List<Movimentacao> getMovimentacoes() {
+		return movimentacoes;
+	}
+
+	public void setMovimentacoes(List<Movimentacao> movimentacoes) {
+		this.movimentacoes = movimentacoes;
 	}
 
 	@Override

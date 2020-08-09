@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -19,6 +21,10 @@ public class Movimentacao  implements Serializable{
 	private Date instante;
 	private Double valor;
 	private Integer tipo;
+	
+	@ManyToOne
+	@JoinColumn(name="conta_id")
+	private Conta conta;
 	
 	public Movimentacao() {
 	}
@@ -60,6 +66,14 @@ public class Movimentacao  implements Serializable{
 
 	public void setTipo(Integer tipo) {
 		this.tipo = tipo;
+	}
+	
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 
 	@Override
