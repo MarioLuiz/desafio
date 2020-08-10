@@ -21,4 +21,9 @@ public class MovimentacaoService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Conta.class.getName()));
 	}
+	
+	public Movimentacao insert(Movimentacao obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
 }
