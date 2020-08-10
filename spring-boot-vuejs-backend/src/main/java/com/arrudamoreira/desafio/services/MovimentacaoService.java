@@ -1,5 +1,6 @@
 package com.arrudamoreira.desafio.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,9 @@ public class MovimentacaoService {
 	public Movimentacao insert(Movimentacao obj) {
 		obj.setId(null);
 		return repo.save(obj);
+	}
+	
+	public List<Movimentacao> findAll() {
+		return repo.findAll();
 	}
 }
