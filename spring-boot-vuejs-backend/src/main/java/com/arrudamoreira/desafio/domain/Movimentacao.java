@@ -7,33 +7,46 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.arrudamoreira.desafio.domain.enums.TipoMovimentacao;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
-public class Movimentacao  implements Serializable{
+@Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+public class Movimentacao implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Date instante;
-	private Double valor;
 	private Integer tipo;
+	private Double valor;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+	private Date instante;
+	private Integer contaDeDestino;
+
 	@ManyToOne
-	@JoinColumn(name="conta_id")
+	@JoinColumn(name = "conta_id")
 	private Conta conta;
-	
+
 	public Movimentacao() {
 	}
 
-	public Movimentacao(Integer id, Date instante, Double valor) {
+	public Movimentacao(Integer id, TipoMovimentacao tipo, Double valor, Date instante, Integer contaDeDestino, Conta conta) {
 		super();
 		this.id = id;
-		this.instante = instante;
+		this.tipo = (tipo == null) ? null : tipo.getTipo();
 		this.valor = valor;
+		this.instante = instante;
+		this.contaDeDestino = contaDeDestino;
+		this.conta = conta;
 	}
 
 	public Integer getId() {
@@ -44,12 +57,12 @@ public class Movimentacao  implements Serializable{
 		this.id = id;
 	}
 
-	public Date getInstante() {
-		return instante;
+	public Integer getTipo() {
+		return tipo;
 	}
 
-	public void setInstante(Date instante) {
-		this.instante = instante;
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
 	}
 
 	public Double getValor() {
@@ -60,14 +73,22 @@ public class Movimentacao  implements Serializable{
 		this.valor = valor;
 	}
 
-	public Integer getTipo() {
-		return tipo;
+	public Date getInstante() {
+		return instante;
 	}
 
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
+	public void setInstante(Date instante) {
+		this.instante = instante;
 	}
-	
+
+	public Integer getContaDeDestino() {
+		return contaDeDestino;
+	}
+
+	public void setContaDeDestino(Integer contaDeDestino) {
+		this.contaDeDestino = contaDeDestino;
+	}
+
 	public Conta getConta() {
 		return conta;
 	}
